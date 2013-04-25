@@ -12,8 +12,8 @@ module OhioStatePerson
         validates_format_of :name_n, :with => /\A[a-z]([a-z-]*[a-z])?\.[1-9]\d*\z/, :message => 'must be in format: name.#'
       end
 
-      validates_uniqueness_of :emplid
-      validates_format_of :emplid, :with => /\A\d{8,9}\z/, :message => 'must be 8 or 9 digits'
+      validates_uniqueness_of :emplid, :allow_nil => true, :allow_blank => true
+      validates_format_of :emplid, :with => /\A\d{8,9}\z/, :message => 'must be 8 or 9 digits', :allow_nil => true, :allow_blank => true
 
     end
   end
