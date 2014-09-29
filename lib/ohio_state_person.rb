@@ -12,8 +12,8 @@ module OhioStatePerson
         validates_format_of :name_n, :with => /\A[a-z]([a-z-]*[a-z])?\.[1-9]\d*\z/, :message => 'must be in format: name.#'
       end
 
-      validates_uniqueness_of :emplid, :allow_nil => true, :allow_blank => true
-      validates_format_of :emplid, :with => /\A\d{8,9}\z/, :message => 'must be 8 or 9 digits', :allow_nil => true, :allow_blank => true
+      #validates_uniqueness_of :emplid, :allow_nil => true, :allow_blank => true
+      #validates_format_of :emplid, :with => /\A\d{8,9}\z/, :message => 'must be 8 or 9 digits', :allow_nil => true, :allow_blank => true
 
     end
   end
@@ -23,10 +23,10 @@ module OhioStatePerson
       q = q.to_s
       h = ActiveSupport::OrderedHash.new
       if options[:fuzzy]
-        h[/\A\s*\d+\s*\z/]      = lambda { where('emplid LIKE ?', "#{q.strip}%") }
+        #h[/\A\s*\d+\s*\z/]      = lambda { where('emplid LIKE ?', "#{q.strip}%") }
         h[/\A\s*\D+\.\d*\s*\z/] = lambda { where('name_n LIKE ?', "#{q.strip}%") } if column_names.include? 'name_n'
       else
-        h[/\A\s*\d+\s*\z/]      = lambda { where(:emplid => q.strip) }
+        #h[/\A\s*\d+\s*\z/]      = lambda { where(:emplid => q.strip) }
         h[/\A\s*\D+\.\d*\s*\z/] = lambda { where(:name_n => q.strip) } if column_names.include? 'name_n'
       end
       h[/(\S+),\s*(\S*)/]     = lambda { where('last_name LIKE ? AND first_name LIKE ?', $1, "#{$2}%") }
